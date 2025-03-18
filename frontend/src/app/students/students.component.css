@@ -1,0 +1,9 @@
+section {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}

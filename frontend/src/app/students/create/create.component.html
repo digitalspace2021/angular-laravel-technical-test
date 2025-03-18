@@ -1,0 +1,137 @@
+<section>
+  @if (hasErrors || success){
+  <app-alert
+    [errors]="errors"
+    type="{{ success ? 'success' : 'error' }}"
+    message="{{
+      success ? 'Student created successfully.' : 'Error creating student.'
+    }}"
+  ></app-alert>
+  }
+
+  <form [formGroup]="createForm" (ngSubmit)="addStudent()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+        required
+      />
+      @if (createForm.controls['name'].invalid &&
+      createForm.controls['name'].touched) {
+      <div class="text-danger">
+        @if (createForm.controls['name'].errors?.['required']) {
+        <small>Name is required.</small>
+        } @if (createForm.controls['name'].errors?.['minlength']) {
+        <small>Minimum 3 characters.</small>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Lastname</label>
+      <input
+        type="text"
+        class="form-control"
+        id="lastName"
+        formControlName="lastName"
+        required
+      />
+      @if (createForm.controls['lastName'].invalid &&
+      createForm.controls['lastName'].touched) {
+      <div class="text-danger">
+        @if (createForm.controls['lastName'].errors?.['required']) {
+        <small>Lastname is required.</small>
+        } @if (createForm.controls['lastName'].errors?.['minlength']) {
+        <small>Minimum 3 characters.</small>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="identification" class="form-label">Identification</label>
+      <input
+        type="text"
+        class="form-control"
+        id="identification"
+        formControlName="identification"
+        required
+      />
+      @if (createForm.controls['identification'].invalid &&
+      createForm.controls['identification'].touched) {
+      <div class="text-danger">
+        @if (createForm.controls['identification'].errors?.['required']) {
+        <small>Identification is required.</small>
+        } @if (createForm.controls['identification'].errors?.['minlength']) {
+        <small>Minimum 9 characters.</small>
+        } @if (createForm.controls['identification'].errors?.['maxlength']) {
+        <small>Maximum 12 characters.</small>
+        } @if (createForm.controls['identification'].errors?.['pattern']) {
+        <small>Only numbers allowed.</small>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+        required
+      />
+      @if (createForm.controls['email'].invalid &&
+      createForm.controls['email'].touched) {
+      <div class="text-danger">
+        @if (createForm.controls['email'].errors?.['required']) {
+        <small>Email is required.</small>
+        } @if (createForm.controls['email'].errors?.['email']) {
+        <small>Invalid email format.</small>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="age" class="form-label">Age</label>
+      <input
+        type="number"
+        class="form-control"
+        id="age"
+        formControlName="age"
+        required
+      />
+      @if (createForm.controls['age'].invalid &&
+      createForm.controls['age'].touched) {
+      <div class="text-danger">
+        @if (createForm.controls['age'].errors?.['required']) {
+        <small>Age is required.</small>
+        } @if (createForm.controls['age'].errors?.['min']) {
+        <small>Minimum age is 18.</small>
+        } @if (createForm.controls['age'].errors?.['max']) {
+        <small>Maximum age is 99.</small>
+        } @if (createForm.controls['age'].errors?.['pattern']) {
+        <small>Only numbers allowed.</small>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="d-flex justify-content-around">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="createForm.invalid"
+      >
+        Submit
+      </button>
+      <a routerLink="/students" class="btn btn-danger">Cancel</a>
+    </div>
+  </form>
+</section>

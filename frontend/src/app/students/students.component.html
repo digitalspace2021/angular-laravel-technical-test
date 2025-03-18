@@ -1,0 +1,98 @@
+<section>
+  @if(hasErrors || success){
+  <app-alert
+    type="{{ success ? 'success' : 'error' }}"
+    message="{{
+      success ? 'Student deleted successfully.' : 'Error deleting student.'
+    }}"
+  ></app-alert>
+  }
+
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="input-group my-5 w-75">
+      <label for="search" class="me-2">Search</label>
+      <input
+        type="text"
+        class="form-control"
+        id="search"
+        placeholder="Search"
+        aria-label="Search"
+        aria-describedby="basic-addon1"
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+      />
+    </div>
+    <div class="input-group d-flex justify-content-end w-25">
+      <a class="btn btn-primary" routerLink="/students-create">Create</a>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Identification</th>
+        <th scope="col">Name</th>
+        <th scope="col">LastName</th>
+        <th scope="col">Email</th>
+        <th scope="col">Age</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @defer{ @for(student of students; track student.id){
+      <tr>
+        <th scope="row">{{ student.identification }}</th>
+        <td>{{ student.name }}</td>
+        <td>{{ student.last_name }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.age }}</td>
+        <td>
+          <div class="d-flex justify-content-around w-100 align-items-center">
+            <a
+              class="btn btn-warning"
+              routerLink="/students-edit/{{ student.id }}"
+              >Edit</a
+            >
+            <button class="btn btn-danger" (click)="deleteStudent(student.id)">
+              Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+      } } @placeholder { ... } @loading {
+      <tr>
+        <td colspan="5" class="text-center">Loading...</td>
+      </tr>
+      } @error {
+      <tr>
+        <td colspan="5" class="text-center">Error...</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <nav aria-label="Page navigation my-3">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" (click)="loadStudents('', '1')">Init</a>
+      </li>
+      @for(pagination of paginations; track pagination.label){
+      <li class="page-item">
+        <a
+          class="page-link"
+          (click)="loadStudents(searchTerm, pagination.label)"
+        >
+          {{ pagination.label }}
+        </a>
+      </li>
+      }
+      <li class="page-item">
+        <a
+          class="page-link"
+          (click)="loadStudents(searchTerm, paginations.length.toString())"
+          >End</a
+        >
+      </li>
+    </ul>
+  </nav>
+</section>

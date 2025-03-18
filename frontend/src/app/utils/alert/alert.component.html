@@ -1,0 +1,19 @@
+<div
+  class="alert {{
+    type === 'success'
+      ? 'alert-success'
+      : type === 'error'
+      ? 'alert-danger'
+      : 'alert-warning'
+  }} alert-dismissible fade show w-50 mx-auto my-3"
+  role="alert"
+>
+  <p>{{ message }}</p>
+  <ul>
+    @for (key of errorKeys; track key) {
+      @for (error of errors[key]; track error) {
+        <li>{{ error }}</li>
+      }
+    }
+  </ul>
+</div>
