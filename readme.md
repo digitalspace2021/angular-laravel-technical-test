@@ -58,7 +58,7 @@ php artisan serve
 Run migrations if applicable:  
 
 ```sh  
-php artisan migrate  # If using Laravel  
+php artisan migrate:fresh --seed  # If using Laravel  
 ```  
 
 ## Running the Project  
